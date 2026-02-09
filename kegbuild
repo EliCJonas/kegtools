@@ -6,6 +6,8 @@ if [[ $# -lt 3 ]]; then
 fi
 
 ORIG_DIR="$PWD"
-cd "$1"
-zip -r "$3" "$2"
+KEG_DIR="$(cd "$1" && cd "$2" && pwd)" || { echo "Error: Could not find '$1/$2'"; exit 1; }
+cd "$KEG_DIR"
+zip -9 -r /tmp/kegbuild_output.zip *
+mv /tmp/kegbuild_output.zip "$ORIG_DIR/$3"
 cd "$ORIG_DIR"
