@@ -1,4 +1,11 @@
 #! /bin/bash
+
+if [[ $# -lt 2 ]]; then
+    echo "Usage: kegmake <directory> <keg-name>"
+    exit 1
+fi
+
+ORIG_DIR="$PWD"
 cd "$1"
 mkdir "$2"
 cd "$2"
@@ -15,3 +22,4 @@ echo "3. Move application data into the data folder"
 echo "4. Move icons to the icons folder"
 echo "5. Place binaries in the root of the keg"
 echo "6. Use kegbuild to build into a keg package"
+cd "$ORIG_DIR"
