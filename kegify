@@ -1,0 +1,23 @@
+#! /bin/bash
+
+if [ -z "$1" ]; then
+    echo "Usage: kegify <binary>"
+    echo ""
+    echo "Wraps a single binary into a .keg package."
+    echo ""
+    echo "Arguments:"
+    echo "  <binary>    Path to the binary file to package"
+    echo ""
+    echo "Output:"
+    echo "  <binary>.keg    The resulting keg package"
+    echo ""
+    echo "Example:"
+    echo "  kegify mytool"
+    exit 0
+fi
+
+kegmake $PWD "$1keg"
+cp $1 "$1keg"
+echo "$1" > "$1keg"/keg-name.txt
+kegbuild $PWD "$1keg" "$1.keg"
+rm -r "$1keg"
